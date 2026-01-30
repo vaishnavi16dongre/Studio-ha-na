@@ -1,0 +1,14 @@
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background: linear-gradient(-45deg, #709f64, #8ebf82, #567d4c, #709f64);
+  background-size: 400% 400%;
+  animation: gradientFlow 4s ease infinite;
+}
+span{
+    font-family: "Press Start P2", cursive;
+}
