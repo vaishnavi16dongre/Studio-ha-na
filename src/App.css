@@ -9,6 +9,45 @@
   background-size: 400% 400%;
   animation: gradientFlow 4s ease infinite;
 }
-span{
-    font-family: "Press Start P2", cursive;
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap');
+/* Hide default cursor on the whole body */
+html, body {
+  cursor: none !important;
+}
+
+/* Ensure links still look clickable by scaling our custom cursor */
+a, button {
+  cursor: none !important;
+}
+
+/* Optional: Add a "pulse" animation for the gradient background you have */
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* Adds that cool 'outline' effect to your header dots */
+.text-stroke-sm {
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+}
+
+/* Custom grid sizing for the bento layout */
+@media (min-width: 768px) {
+  .grid-rows-3 {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Smooth transition for the bento cards */
+.group:hover {
+  transform: scale(1.02);
 }
