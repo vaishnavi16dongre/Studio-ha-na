@@ -46,9 +46,13 @@ const SkillCounter = ({ target, isVisible }) => {
 // --- DATA ---
 
 const frontendSkills = [
-  { name: "React", level: 85, icon: sparkle, desc: "UI Library", color: "#59EAFF" },
+  { name: "React", level: 95, icon: sparkle, desc: "UI Library", color: "#59EAFF" },
+   { name: "Bootstrap", level: 90, icon: sparkle, desc: "UI Library", color: "#59EAFF" },
+    { name: "HTML", level: 100, icon: sparkle, desc: "Markup Language", color: "#59EAFF" },
   { name: "Tailwind", level: 95, icon: message, desc: "CSS Framework", color: "#38b2ac" },
   { name: "Figma", level: 75, icon: cd, desc: "Design Tool", color: "#D959FF" },
+   { name: "CSS", level: 85, icon: sparkle, desc: "Style Sheet Language ", color: "#59EAFF" },
+    { name: "JavaScript", level: 85, icon: sparkle, desc: "Scripting Language", color: "#59EAFF" },
 ];
 
 const backendSkills = [
@@ -294,7 +298,7 @@ function Layout() {
                       <div className="h-px flex-1 transition-colors duration-700"
                         style={{ backgroundColor: isProjectsSection ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.3)' }} />
                       <h3 className={`text-2xl font-black uppercase tracking-[0.3em] ${isProjectsSection ? "text-black/50" : "text-white/50"}`}>
-                        // Frontend
+                         Frontend
                       </h3>
                       <div className="h-px flex-1 transition-colors duration-700"
                         style={{ backgroundColor: isProjectsSection ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.3)' }} />
