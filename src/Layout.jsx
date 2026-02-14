@@ -79,6 +79,7 @@ function Layout() {
   const [isProjectsSection, setIsProjectsSection] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [skillsVisible, setSkillsVisible] = useState(false);
+  const [formStatus, setFormStatus] = useState("idle"); // idle | sending | success | error
 
   const handleMouseMove = (e) => {
     const x = (e.clientX / window.innerWidth - 0.5) * 30;
@@ -135,6 +136,32 @@ function Layout() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollLocked]);
+
+  // --- FORM SUBMIT HANDLER ---
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus("sending");
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mbdagjel", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        setFormStatus("success");
+        form.reset();
+      } else {
+        setFormStatus("error");
+      }
+    } catch (err) {
+      setFormStatus("error");
+    }
+  };
 
   const themeDark = "#07220e";
   const themeCream = "#FFFDD0";
@@ -417,7 +444,7 @@ function Layout() {
                         {/* Social Links */}
                         <div className="space-y-4">
                           {/* LinkedIn */}
-                          <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer"
+                          <a href="http://linkedin.com/in/dongrevaishavi" target="_blank" rel="noopener noreferrer"
                             className="group flex items-center gap-4 p-4 rounded-2xl border-2 border-black transition-all duration-300 hover:-translate-y-1"
                             style={{ 
                               backgroundColor: isProjectsSection ? 'rgba(255,255,255,0.8)' : 'rgba(7, 34, 14, 0.3)',
@@ -439,7 +466,7 @@ function Layout() {
                           </a>
 
                           {/* GitHub */}
-                          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer"
+                          <a href="https://github.com/vaishnavi16dongre" target="_blank" rel="noopener noreferrer"
                             className="group flex items-center gap-4 p-4 rounded-2xl border-2 border-black transition-all duration-300 hover:-translate-y-1"
                             style={{ 
                               backgroundColor: isProjectsSection ? 'rgba(255,255,255,0.8)' : 'rgba(7, 34, 14, 0.3)',
@@ -486,11 +513,22 @@ function Layout() {
                       <h4 className={`text-2xl font-bold mb-6 uppercase tracking-tight ${isProjectsSection ? "text-black" : "text-white"}`}>
                         Send Me a Message
                       </h4>
+
+                      {/* SUCCESS MESSAGE */}
+                      {formStatus === "success" && (
+                        <div className="mb-6 px-5 py-4 rounded-xl border-2 border-black bg-[#B1FF59] text-black font-bold text-center">
+                           Message sent! I'll get back to you soon.
+                        </div>
+                      )}
+
+                      {/* ERROR MESSAGE */}
+                      {formStatus === "error" && (
+                        <div className="mb-6 px-5 py-4 rounded-xl border-2 border-black bg-[#FF5959] text-white font-bold text-center">
+                          ❌ Oops! Something went wrong. Please try again.
+                        </div>
+                      )}
                       
-                      <form 
-                        action="https://formspree.io/f/YOUR_FORM_ID" 
-                        method="POST"
-                        className="space-y-4">
+                      <form onSubmit={handleFormSubmit} className="space-y-4">
                         
                         {/* Name Input */}
                         <div>
@@ -552,9 +590,10 @@ function Layout() {
                         {/* Submit Button */}
                         <button
                           type="submit"
-                          className="w-full px-8 py-4 bg-[#d1cc65ff] text-black font-bold rounded-xl border-2 border-black transition-all duration-300 hover:scale-105 hover:shadow-lg uppercase tracking-wide"
+                          disabled={formStatus === "sending"}
+                          className="w-full px-8 py-4 bg-[#d1cc65ff] text-black font-bold rounded-xl border-2 border-black transition-all duration-300 hover:scale-105 hover:shadow-lg uppercase tracking-wide disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                         >
-                          Send Message →
+                          {formStatus === "sending" ? "Sending... ⏳" : "Send Message →"}
                         </button>
                       </form>
 
